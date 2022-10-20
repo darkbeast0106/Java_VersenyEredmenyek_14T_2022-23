@@ -6,18 +6,31 @@ import java.util.*;
 
 public class Main {
     private static Map<String, List<Eredmeny>> sportagEredmenyek = new HashMap<>();
+
     public static void main(String[] args) {
         String fajlNev = "eredmenyek.txt";
         try {
             beolvas(fajlNev);
+            kiiras();
         } catch (FileNotFoundException e) {
             System.out.printf("Nem található a %s fájl", fajlNev);
         }
     }
 
+    private static void kiiras() {
+        for (Map.Entry<String, List<Eredmeny>> entry : sportagEredmenyek.entrySet()) {
+            String sportag = entry.getKey();
+            List<Eredmeny> eredmenyek = entry.getValue();
+            System.out.println(sportag);
+            for (Eredmeny eredmeny : eredmenyek) {
+                System.out.println("\t" + eredmeny);
+            }
+        }
+    }
+
     private static void beolvas(String fajlNev) throws FileNotFoundException {
         Scanner file = new Scanner(new File(fajlNev));
-        while (file.hasNext()){
+        while (file.hasNext()) {
             String[] sor = file.nextLine().split(" ");
             String sportag = sor[0];
             String reszIdo = sor[1];
