@@ -12,9 +12,28 @@ public class Main {
         try {
             beolvas(fajlNev);
             kiiras();
+            System.out.println("Sportágak száma: " + getSportagakSzama());
+            System.out.printf("Az olimpián %d versenyző vett részt\n", getVersenyzokSzama());
         } catch (FileNotFoundException e) {
             System.out.printf("Nem található a %s fájl", fajlNev);
         }
+    }
+
+    private static int getVersenyzokSzama() {
+        List<String> versenyzok = new ArrayList<>();
+        for (Map.Entry<String, List<Eredmeny>> entry: sportagEredmenyek.entrySet()) {
+            List<Eredmeny> eredmenyek = entry.getValue();
+            for (Eredmeny e: eredmenyek) {
+                if (!versenyzok.contains(e.getNev())){
+                    versenyzok.add(e.getNev());
+                }
+            }
+        }
+        return versenyzok.size();
+    }
+
+    private static int getSportagakSzama() {
+        return sportagEredmenyek.keySet().size();
     }
 
     private static void kiiras() {
